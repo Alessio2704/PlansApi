@@ -21,4 +21,4 @@ app.use("/api/user/personalplans", plansRoute);
 app.use("/api/user/publicplans", publicPlansRoute);
 app.use("/api/user/publicexercises", publicExercisesRoute);
 
-app.listen(PORT, () => console.log(`Ciao a tutti Running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Running on port ${PORT}`));
