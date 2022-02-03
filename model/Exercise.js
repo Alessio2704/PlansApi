@@ -13,6 +13,10 @@ const exerciseSchema = new mongoose.Schema({
     sets: {
         type: [Set],
         required: true
+    },
+    rowOrder: {
+        type: Number,
+        required: true
     }
 });
 
