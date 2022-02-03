@@ -12,7 +12,7 @@ router.get("/:userID", verify, async (req, res) => {
                 const publicPlan = await PublicPlan.find();
                 const response = {};
                 for (i in publicPlan) {
-                    response[i] = {"planName":publicPlan[i].planName,"weeks":publicPlan[i].weeks,"createdBy":publicPlan[i].createdBy};
+                    response[i] = {"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"createdBy":publicPlan[i].createdBy};
                 }
                 res.send(response);
             } catch(error) {
@@ -33,12 +33,12 @@ router.post("/:userID", verify, async (req, res) => {
         if (user.coach == true) {
             const newPlan = new PublicPlan({
                 planName: req.body.planName,
-                weeks: req.body.weeks,
+                exercises: req.body.exercises,
                 createdBy: user.email
             });
             try {
                 newPlan.save();
-                res.send({"name":newPlan.planName, "weeks":newPlan.weeks, "createdBy":newPlan.createdBy});
+                res.send({"name":newPlan.planName, "exercises":newPlan.exercises, "createdBy":newPlan.createdBy});
             } catch (err) {
                 res.send(err);
             };

@@ -7,8 +7,8 @@ const planSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    weeks: {
-        type: [[Exercise]]
+    exercises: {
+        type: [Exercise]
     }
 });
 
