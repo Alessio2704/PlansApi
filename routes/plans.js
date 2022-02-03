@@ -21,7 +21,7 @@ router.put("/:id", verify, async (req, res) => {
         res(user)
         
     } catch(error) {
-       res.send({"message":"No personal plans found"});
+       res.send({"message":"Error"});
     }
 });
 
