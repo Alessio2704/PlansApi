@@ -15,12 +15,8 @@ router.get("/:id", verify, async (req, res) => {
 router.put("/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.findOne({_id: req.params.id}, (doc, err) => {
-            doc.plans = [req.body.plan];
-            doc.save();
-            res.send(doc)
-        });
-        
+        let user = await User.update({_id:req.params.id},{$push: {plans: req.body.plan}});
+        res.send({"message": "ok"});
     } catch(error) {
        res.send({"message":"Error"});
     }
