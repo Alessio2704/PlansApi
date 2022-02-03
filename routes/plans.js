@@ -22,7 +22,7 @@ router.put("/:id", verify, async (req, res) => {
         });
         
     } catch(error) {
-       res.send({"message":"Error"});
+       res.send(error);
     }
 });
 
