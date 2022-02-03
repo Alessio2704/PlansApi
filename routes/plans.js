@@ -14,11 +14,15 @@ router.get("/:id", verify, async (req, res) => {
 
 router.put("/:id", verify, async (req, res) => {
 
-    let userDB = await User.find({_id: req.params.id}, (doc,err) => {
-        doc.plans = [req.body];
-        if (!err) res.status(200);
-        res.status(400).send(err);
-    });
+    try {
+        let userDB = await User.find({_id: req.params.id}, (doc,err) => {
+            doc.plans = [req.body];
+            if (!err) res.status(200);
+            res.status(400).send(err);
+        });
+    } catch (error) {
+        res.status(400).send(error);
+    }
 });
 
 module.exports = router;
