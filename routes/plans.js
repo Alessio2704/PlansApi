@@ -15,10 +15,11 @@ router.get("/:id", verify, async (req, res) => {
 router.put("/:id", verify, async (req, res) => {
 
     try {
-        const filter = { _id: req.params.id }
-        const update = {$push: {plans: req.body}}
-        let user = await User.findOneAndUpdate(filter, update);
-        res(user)
+        let user = await User.findOne({_id: req.params.id}, (doc, err) => {
+            doc.plans = [req.body];
+            doc.save();
+            res.send(doc);
+        });
         
     } catch(error) {
        res.send({"message":"Error"});
