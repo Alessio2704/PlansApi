@@ -7,7 +7,7 @@ const setsSchema = new mongoose.Schema({
         required: true
     },
     weight: {
-        type: mongoose.Types.Decimal128,
+        type: String,
         default: 0.0
     },
     restTime: {
