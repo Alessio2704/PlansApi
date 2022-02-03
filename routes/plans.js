@@ -15,7 +15,7 @@ router.get("/:id", verify, async (req, res) => {
 router.put("/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.find({_id: req.params.id}, (doc, err) => {
+        let user = await User.find({}, (doc, err) => {
             doc.plans = [req.body.plan];
             doc.save();
             res.send(doc);
