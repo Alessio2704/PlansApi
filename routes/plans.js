@@ -12,18 +12,4 @@ router.get("/:id", verify, async (req, res) => {
     }
 });
 
-router.put("/:id", verify, async (req, res) => {
-
-    try {
-        let user = await User.find({}, (doc, err) => {
-            doc.plans = [req.body.plan];
-            doc.save();
-            res.send(doc);
-        });
-        
-    } catch(error) {
-       res.send(error);
-    }
-});
-
 module.exports = router;
