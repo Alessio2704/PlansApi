@@ -13,7 +13,7 @@ router.get("/:id", verify, async (req, res) => {
 
 router.put("/:id", verify, async (req, res) => {
   let user = await User.findOne({ _id: req.params.id }, (doc, err) => {
-    doc.plans = [req.body];
+    doc.plans = [req.body.plan];
     doc.save();
     res.send(doc);
   });
