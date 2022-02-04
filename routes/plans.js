@@ -25,7 +25,7 @@ router.put("/:id", verify, async (req, res) => {
 router.post("/delete/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.update({_id:req.params.id},{$pull: {plans: req.body.planName}});
+        let user = await User.update({_id:req.params.id},{$pull: {plans: req.body}});
         try {
             user.save();
         } catch(err) {
