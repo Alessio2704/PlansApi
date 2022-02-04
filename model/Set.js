@@ -16,6 +16,10 @@ const setsSchema = new mongoose.Schema({
     },
     latestReps: {
         type: Number
+    },
+    number: {
+        type: Number,
+        required: true
     }
 });
 
