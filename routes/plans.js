@@ -22,4 +22,14 @@ router.put("/:id", verify, async (req, res) => {
     }
 });
 
+router.delete("/:id", verify, async (req, res) => {
+
+    try {
+        let user = await User.update({_id:req.params.id},{$pull: {plans: req.body}});
+        res.send({"message": "ok"});
+    } catch(error) {
+       res.send({"message":"Error"});
+    }
+});
+
 module.exports = router;
