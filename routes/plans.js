@@ -27,7 +27,7 @@ router.post("/check/:id", verify, async (req, res) => {
         if (prova.length == 1) {
             res.status(200).send({"message":"Plan found"});
         } else {
-            res.status(404).send({"message":"No plan found"});
+            res.status(200).send({"message":"No plan found"});
         }
 
     } catch(error) {
