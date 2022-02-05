@@ -16,10 +16,15 @@ router.get("/check/:id", verify, async (req, res) => {
 
     try {
         const userDB = await User.findOne({ _id: req.params.id });
-        const planDB = userDB.plans.findOne({planName: req.body.planName});
-        res.send({"message":"Plan found"});
+        const planDB = userDB.plans.planName = req.body.planName;
+        if (planDB) {
+            res.send({"message":"Plan found"});
+        } else {
+            res.status(404).send({"message":"No plan found"});
+        }
+        
     } catch(error) {
-       res.status(404).send({"message":"No plan found"});
+       res.status(404).send({"message":"No user found"});
     }
 });
 
