@@ -16,17 +16,13 @@ router.post("/check/:id", verify, async (req, res) => {
 
     try {
         const userDB = await User.findOne({ _id: req.params.id});
-        try {
-            const planDB = await userDB.plans.find({$elemMatch:{planName: req.body.planName}});
-            if (planDB) {
-                res.send({"message":"Plan found"});
-            } else {
-                res.status(404).send({"message":"No plan found"});
-            }
-        } catch(err) {
-            res.status(404).send({"message":"No plan found"});
-        }
         
+        for (plan in userDB.plans) {
+            if (plan.planName == req.body.planName) {
+                res.status(200).send({"message":"User found"});
+            }
+        }
+
     } catch(error) {
        res.status(404).send({"message":"No user found"});
     }
