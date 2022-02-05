@@ -48,7 +48,7 @@ router.put("/:id", verify, async (req, res) => {
 router.post("/delete/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.update({_id:req.params.id},{$pull: {plans: {plans: {$elemMatch: {planName:req.body.planName}}}}});
+        let user = await User.updateOne({_id:req.params.id},{$pull: {plans: {plans: {$elemMatch: {"plan.planName": req.body.planName}}}}});
         res.send({"message": "ok"});
     } catch(error) {
        res.send({"message":"Error"});
