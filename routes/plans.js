@@ -12,6 +12,16 @@ router.get("/:id", verify, async (req, res) => {
     }
 });
 
+router.get("/:id", verify, async (req, res) => {
+
+    try {
+        const userDB = await User.findOne({ _id: req.params.id });
+        res.send(userDB.plans.findOne({planName: req.body.planName}));
+    } catch(error) {
+       res.status(404).send({"message":"No plan found"});
+    }
+});
+
 router.put("/:id", verify, async (req, res) => {
 
     try {
