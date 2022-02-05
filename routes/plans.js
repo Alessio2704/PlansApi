@@ -15,8 +15,8 @@ router.get("/:id", verify, async (req, res) => {
 router.post("/check/:id", verify, async (req, res) => {
 
     try {
-        const userDB = await User.findOne({ _id: req.params.id });
-        const planDB = userDB.plans.planName = req.body.planName;
+        const userDB = await User.findOne({ _id: req.params.id});
+        const planDB = await userDB.plans.find({planName: req.body.planName});
         if (planDB) {
             res.send({"message":"Plan found"});
         } else {
