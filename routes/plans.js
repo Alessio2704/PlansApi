@@ -12,7 +12,7 @@ router.get("/:id", verify, async (req, res) => {
     }
 });
 
-router.get("/check/:id", verify, async (req, res) => {
+router.post("/check/:id", verify, async (req, res) => {
 
     try {
         const userDB = await User.findOne({ _id: req.params.id });
