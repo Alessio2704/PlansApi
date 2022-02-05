@@ -19,9 +19,8 @@ router.post("/check/:id", verify, async (req, res) => {
         let prova = []
 
         for (i in userDB.plans) {
-            console.log(i);
-            if (i.planName == req.body.planName) {
-                prova.push(i);
+            if (userDB.plans[i].planName == req.body.planName) {
+                prova.push(userDB.plans[i]);
             }
         }
 
