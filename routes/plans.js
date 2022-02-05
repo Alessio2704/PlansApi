@@ -20,6 +20,7 @@ router.post("/check/:id", verify, async (req, res) => {
         for (plan in userDB.plans) {
             if (plan.planName == req.body.planName) {
                 res.status(200).send({"message":"User found"});
+                return
             }
         }
 
