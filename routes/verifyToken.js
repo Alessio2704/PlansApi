@@ -8,6 +8,7 @@ module.exports = function (req,res,next) {
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log(verified._id)
+        console.log(req.params.id)
 
         if (!verified) {
             res.status(400).send({"message":"Invalid Token"});
