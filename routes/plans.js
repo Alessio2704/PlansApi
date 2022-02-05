@@ -19,11 +19,12 @@ router.post("/check/:id", verify, async (req, res) => {
         let prova = []
 
         for (i in userDB.plans) {
+            console.log(i.planName);
             if (i.planName == req.body.planName) {
                 prova.push(i);
             }
         }
-        
+
         if (prova.length == 1) {
             res.status(200).send({"message":"Plan found"});
         } else {
