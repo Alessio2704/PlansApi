@@ -58,21 +58,18 @@ router.post("/login", async (req,res) => {
     res.header("auth-token", token).send({userID: user._id,"token":token});
 });
 
-router.delete("/delete/:userID", verify, async (req,res) => {
-    const userID = req.params.userID;
-
+router.delete("/delete/:id", verify, async (req,res) => {
     try {
-        const userDB = await User.findByIdAndDelete(userID);
+        const userDB = await User.findByIdAndDelete(req.params.id);
         res.status(200).send({"message":"User deleted"})
     } catch(error) {
         res.status(400).send({"message":"User not found"});
     }
 });
 
-router.get("/info/:userID",verify, async (req,res) => {
-    const userID = req.params.userID;
+router.get("/info/:id",verify, async (req,res) => {
     try {
-        const userDB = await User.findById(userID);
+        const userDB = await User.findById(req.params.id);
         res.status(200).send({id: userDB._id, name: userDB.name, email: userDB.email, coach: userDB.coach})
     } catch(error) {
         res.status(400).send({"message":"User not found"});

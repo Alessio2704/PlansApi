@@ -3,11 +3,11 @@ const verify = require("./verifyToken");
 const PublicPlan = require("../model/PublicPlan");
 const User = require("../model/User");
 
-router.get("/:userID", verify, async (req, res) => {
+router.get("/:id", verify, async (req, res) => {
 
     try {
-        const user = await User.findById(req.params.userID);
-        if (user._id == req.params.userID) {
+        const user = await User.findById(req.params.id);
+        if (user._id == req.params.id) {
             try {
                 const publicPlan = await PublicPlan.find();
                 const response = {};
@@ -27,9 +27,9 @@ router.get("/:userID", verify, async (req, res) => {
     };
 });
 
-router.post("/:userID", verify, async (req, res) => {
+router.post("/:id", verify, async (req, res) => {
     try {
-        const user = await User.findById(req.params.userID);
+        const user = await User.findById(req.params.id);
         if (user.coach == true) {
             const newPlan = new PublicPlan({
                 planName: req.body.planName,
