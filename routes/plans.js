@@ -15,17 +15,12 @@ router.get("/:id", verify, async (req, res) => {
 router.post("/check/:id", verify, async (req, res) => {
 
     try {
-        const userDB = await User.findOne({ _id: req.params.id});
-        const planDB = await userDB.find({"plans.planName": req.body.planName});
+        const userDB = await User.findOne({_id:req.params.id,plans:{$elemMatch:{planName: req.body.planName}}});
         
-        if (planDB) {
-            res.status(200).send({"message":"User found"});
-        } else {
-            res.status(404).send({"message":"No user found"});
-        }
+        res.status(200).send({"message":"User found"});
 
     } catch(error) {
-       res.status(404).send({"message":"No user found"});
+       res.status(404).send({"message":"No plan found"});
     }
 });
 
