@@ -18,10 +18,8 @@ router.post("/check/:id", verify, async (req, res) => {
         const userDB = await User.findOne({_id:req.params.id});
         let prova = []
 
-        console.log(userDB.plans)
-
         for (i in userDB.plans) {
-            console.log(i.planName);
+            console.log(i);
             if (i.planName == req.body.planName) {
                 prova.push(i);
             }
