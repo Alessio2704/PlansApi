@@ -12,8 +12,9 @@ router.post("/:id", verify, (req, res) => {
             return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay)
         }).pop();
         exercise.stats.push(req.body.stats)
-        user.save();
         res.send({"message": "Stats Uploaded"});
+        user.save();
+        
     });
 });
 
