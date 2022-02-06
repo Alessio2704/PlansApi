@@ -38,7 +38,7 @@ router.post("/check/:id", verify, async (req, res) => {
 router.put("/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.update({_id:req.params.id},{$push: {plans: req.body}});
+        let user = await User.updateOne({_id:req.params.id},{$push: {plans: req.body}});
         res.send({"message": "ok"});
     } catch(error) {
        res.send({"message":"Error"});
@@ -48,7 +48,7 @@ router.put("/:id", verify, async (req, res) => {
 router.post("/delete/:id", verify, async (req, res) => {
 
     try {
-        let user = await User.update({_id:req.params.id},{$pull: {plans: req.body}});
+        let user = await User.updateOne({_id:req.params.id},{$pull: {plans: req.body}});
         res.send({"message": "ok"});
     } catch(error) {
        res.send({"message":"Error"});
