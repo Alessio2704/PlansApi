@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Set = require("./Set");
+const ExerciseStats = require("./ExerciseStats");
 const exerciseSchema = new mongoose.Schema({
 
     name: {
@@ -17,6 +18,9 @@ const exerciseSchema = new mongoose.Schema({
     rowOrder: {
         type: Number,
         required: true
+    },
+    stats: {
+        type: [ExerciseStats]
     }
 });
 
