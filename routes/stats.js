@@ -9,7 +9,7 @@ router.post("/:id", verify, (req, res) => {
             return plans.planName === req.body.planName;
         }).pop();
         const exercise = plan.exercises.filter(function (exercises) {
-            return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay)
+            return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
         }).pop();
         exercise.stats.push(req.body.stats);
         res.send({"message": "Stats Uploaded"});
