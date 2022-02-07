@@ -8,6 +8,9 @@ const exerciseStatsSchema = new mongoose.Schema({
     },
     sets: {
         type: [Set]
+    },
+    frequency: {
+        type: Number
     }
 });
 
