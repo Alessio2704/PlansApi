@@ -132,7 +132,7 @@ router.delete("/delete/coach/:id", verify, async (req,res) => {
 router.get("/info/:id",verify, async (req,res) => {
     try {
         const userDB = await User.findById(req.params.id);
-        res.status(200).send({id: userDB._id, name: userDB.name, email: userDB.email, coach: userDB.coach})
+        res.status(200).send({id: userDB._id, name: userDB.name, email: userDB.email})
     } catch(error) {
         res.status(400).send({"message":"User not found"});
     }
@@ -141,7 +141,7 @@ router.get("/info/:id",verify, async (req,res) => {
 router.get("/info/coach/:id",verify, async (req,res) => {
     try {
         const coachDB = await Coach.findById(req.params.id);
-        res.status(200).send({id: coachDB._id, name: coachDB.name, email: coachDB.email})
+        res.status(200).send({id: coachDB._id, name: coachDB.name, email: coachDB.email, publicPlans: coachDB.publicPlans})
     } catch(error) {
         res.status(400).send({"message":"Coach not found"});
     }
