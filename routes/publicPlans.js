@@ -2,6 +2,7 @@ const router = require("express").Router();
 const verify = require("./verifyToken");
 const PublicPlan = require("../model/PublicPlan");
 const User = require("../model/User");
+const Coach = require("../model/Coach");
 
 router.get("/:id", verify, async (req, res) => {
 
@@ -29,12 +30,11 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/:id", verify, async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        if (user.coach == true) {
+        const coach = await Coach.findById(req.params.id);
             const newPlan = new PublicPlan({
                 planName: req.body.planName,
                 exercises: req.body.exercises,
-                createdBy: user.email
+                createdBy: coach.email
             });
             try {
                 newPlan.save();
@@ -42,9 +42,6 @@ router.post("/:id", verify, async (req, res) => {
             } catch (err) {
                 res.send(err);
             };
-        } else {
-            res.status(400).send({"message":"This is not a coach account"});
-        }
     } catch(error) {
         res.status(400).send({"message":"No User"});
     }

@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Plan = require("./Plan");
+const PublicPlan = require("./PublicPlan");
 
-const userSchema = new mongoose.Schema({
+const coachSchema = new mongoose.Schema({
 
     name: {
         type: String,
@@ -27,7 +28,11 @@ const userSchema = new mongoose.Schema({
     },
     plans: {
         type: [Plan]
+    },
+    publicPlans: {
+        type: [PublicPlan]
     }
+
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Coach", coachSchema);

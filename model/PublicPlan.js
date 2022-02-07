@@ -16,4 +16,4 @@ const publicpPlanSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("PublicPlan", publicpPlanSchema);
+module.exports = publicpPlanSchema
