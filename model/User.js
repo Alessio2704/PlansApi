@@ -3,11 +3,10 @@ const Plan = require("./Plan");
 
 const userSchema = new mongoose.Schema({
 
-    username: {
+    name: {
         type: String,
         required: true,
-        min: 6,
-        unique: true
+        min: 6
     },
     email: {
         type: String,
