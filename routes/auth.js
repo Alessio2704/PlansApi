@@ -89,7 +89,7 @@ router.post("/login", async (req,res) => {
 
     // Create token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).send({userID: user._id,"token":token, "name": savedUser.name});
+    res.header("auth-token", token).send({userID: user._id,"token":token, "name": user.name});
 });
 
 router.delete("/delete/:id", verify, async (req,res) => {
