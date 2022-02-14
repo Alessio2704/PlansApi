@@ -4,7 +4,7 @@ const PublicPlan = require("./PublicPlan");
 
 const coachSchema = new mongoose.Schema({
 
-    username: {
+    name: {
         type: String,
         required: true,
         min: 6

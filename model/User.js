@@ -3,7 +3,7 @@ const Plan = require("./Plan");
 
 const userSchema = new mongoose.Schema({
 
-    username: {
+    name: {
         type: String,
         required: true,
         min: 6
