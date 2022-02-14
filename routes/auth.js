@@ -34,7 +34,7 @@ router.post("/register", async (req,res) => {
         const savedUser = await user.save();
         // Create token
         const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-        res.send({userID:savedUser._id, token:token, name: savedUser.name});
+        res.send({userID:savedUser._id, token:token});
     }catch(err) {
         res.status(400).send({"message":err});
     }
@@ -89,7 +89,7 @@ router.post("/login", async (req,res) => {
 
     // Create token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).send({userID: user._id,"token":token});
+    res.header("auth-token", token).send({userID: user._id,"token":token, name: savedUser.name});
 });
 
 router.delete("/delete/:id", verify, async (req,res) => {
@@ -117,7 +117,7 @@ router.post("/login/coach", async (req,res) => {
 
     // Create token
     const token = jwt.sign({_id: coach._id}, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).send({userID: coach._id,"token":token});
+    res.header("auth-token", token).send({userID: coach._id,"token":token, name: coach.name});
 });
 
 router.delete("/delete/coach/:id", verify, async (req,res) => {
