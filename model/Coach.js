@@ -7,7 +7,7 @@ const coachSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique,
+        unique: true,
         min: 6
     },
     email: {
