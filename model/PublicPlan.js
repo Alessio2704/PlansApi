@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Exercise = require("./Exercise");
+const User = require("../model/User");
 
 const publicPlanSchema = new mongoose.Schema({
 
@@ -12,7 +13,11 @@ const publicPlanSchema = new mongoose.Schema({
     },
     createdBy: {
         type: String
-    }
+    },
+    
+    likes: [{ type : ObjectId, ref: 'User' }],
+
+    downloades: [{ type : ObjectId, ref: 'User'}]
 });
 
 module.exports.publicPlan = publicPlanSchema;
