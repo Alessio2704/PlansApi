@@ -5,9 +5,7 @@ const supersetExercise = require("./SupersetExercise")
 const planSchema = new mongoose.Schema({
 
     planName: {
-        type: String,
-        required:true,
-        unique: true
+        type: String
     },
     exercises: {
         type: [Exercise]
