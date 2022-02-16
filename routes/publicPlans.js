@@ -33,15 +33,14 @@ router.post("/:id", verify, async (req, res) => {
             if (!coach) {
                 res.status(400).send({"message":"No User"});
             }
-            console.log(coach.email);
             const newPlan = new publicPlanModel({
                 planName: req.body.planName,
                 exercises: req.body.exercises,
                 createdBy: coach.email
             });
+            coach.publicPlans.push(newPlan);
             try {
                 newPlan.save();
-                coach.publicPlans.push(newPlan);
                 res.send({"name":newPlan.planName,"createdBy":newPlan.createdBy});
             } catch (err) {
                 res.send(err);
