@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const { PublicPlan, PublicPlanModel } = require("./PublicPlan");
+const { PublicPlan, PublicPlanModel } = require("../model/PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
