@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Exercise = require("./Exercise");
 
-const publicpPlanSchema = new mongoose.Schema({
+const publicPlanSchema = new mongoose.Schema({
 
     planName: {
         type: String,
@@ -16,6 +16,5 @@ const publicpPlanSchema = new mongoose.Schema({
     }
 });
 
-module.exports = publicpPlanSchema
-module.exports.publicpPlan = publicpPlanSchema;
-module.exports.publicpPlanModel = mongoose.model("publicPlanModel", publicpPlanSchema);;
+module.exports.publicPlan = publicPlanSchema;
+module.exports.publicPlanModel = mongoose.model("publicPlanModel", publicPlanSchema);;
