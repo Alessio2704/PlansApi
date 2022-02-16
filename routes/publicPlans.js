@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const PublicPlan = require("../model/PublicPlan");
+const { PublicPlan, PublicPlanModel } = require("./PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
@@ -33,7 +33,7 @@ router.post("/:id", verify, async (req, res) => {
         if (!coach) {
             res.status(400).send({"message":"No User"});
         }
-        const newPlan = new PublicPlan({
+        const newPlan = new PublicPlanModel({
             planName: req.body.planName,
             exercises: req.body.exercises,
             createdBy: coach.email

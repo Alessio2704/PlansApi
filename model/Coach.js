@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Plan = require("./Plan");
-const PublicPlan = require("./PublicPlan");
+const { PublicPlan, PublicPlanModel } = require("./PublicPlan");
 
 const coachSchema = new mongoose.Schema({
 
