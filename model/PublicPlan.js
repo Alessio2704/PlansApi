@@ -14,10 +14,10 @@ const publicPlanSchema = new mongoose.Schema({
     createdBy: {
         type: String
     },
-    
-    likes: [{ type : ObjectId, ref: 'User' }],
 
-    downloades: [{ type : ObjectId, ref: 'User'}]
+    likes: [{ type : mongoose.Types.ObjectId, ref: 'User' }],
+
+    downloades: [{ type : mongoose.Types.ObjectId, ref: 'User'}]
 });
 
 module.exports.publicPlan = publicPlanSchema;
