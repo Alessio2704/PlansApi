@@ -39,6 +39,7 @@ router.post("/:id", verify, async (req, res) => {
                 createdBy: coach.email
             });
             coach.publicPlans.push(newPlan);
+            coach.save();
             try {
                 newPlan.save();
                 res.send({"name":newPlan.planName,"createdBy":newPlan.createdBy});
