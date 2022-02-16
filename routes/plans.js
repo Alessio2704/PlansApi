@@ -89,6 +89,29 @@ router.post("/coach/check/:id", verify, async (req, res) => {
     }
 });
 
+router.post("/coach/check/published/:id", verify, async (req, res) => {
+
+    try {
+        const coachDB = await Coach.findOne({_id:req.params.id});
+        let prova = []
+
+        for (i in coachDB.publicPlans) {
+            if (coachDB.publicPlans[i].planName == req.body.planName) {
+                prova.push(coachDB.publicPlans[i]);
+            }
+        }
+
+        if (prova.length == 1) {
+            res.status(200).send({"message":"Plan found"});
+        } else {
+            res.status(200).send({"message":"No plan found"});
+        }
+
+    } catch(error) {
+       res.status(404).send({"message":"No user found"});
+    }
+});
+
 router.put("/coach/:id", verify, async (req, res) => {
 
     try {
