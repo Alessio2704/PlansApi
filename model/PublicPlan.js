@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Exercise = require("./Exercise");
 const User = require("../model/User");
+const supersetExercise = require("./SupersetExercise");
 
 const publicPlanSchema = new mongoose.Schema({
 
@@ -10,6 +11,9 @@ const publicPlanSchema = new mongoose.Schema({
     },
     exercises: {
         type: [Exercise]
+    },
+    supersets: {
+        type: [supersetExercise]
     },
     createdBy: {
         type: String
