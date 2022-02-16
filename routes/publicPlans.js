@@ -30,16 +30,19 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/:id", verify, async (req, res) => {
         const coach = Coach.findOne({ _id: req.params.id });
+        const emailCoach = coach.email;
+        console.log(emailCoach);
         if (!coach) {
             res.status(400).send({"message":"No User"});
         }
         const newPlan = new publicPlanModel({
             planName: req.body.planName,
             exercises: req.body.exercises,
-            createdBy: coach.email
+            createdBy: emailCoach
         });
         try {
             newPlan.save();
+            coach.publicPlans.push(newPlan);
             res.send({"name":newPlan.planName,"createdBy":newPlan.createdBy});
         } catch (err) {
             res.send(err);
