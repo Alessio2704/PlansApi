@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Plan = require("./Plan");
-const { PublicPlan, PublicPlanModel } = require("./PublicPlan");
+const { publicPlan, publicPlanModel } = require("./PublicPlan");
 
 const coachSchema = new mongoose.Schema({
 
@@ -30,7 +30,7 @@ const coachSchema = new mongoose.Schema({
         type: [Plan]
     },
     publicPlans: {
-        type: [PublicPlan]
+        type: [publicPlan]
     }
 
 });

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const { PublicPlan, PublicPlanModel } = require("../model/PublicPlan");
+const { publicPlan, publicPlanModel } = require("../model/PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
@@ -10,7 +10,7 @@ router.get("/:id", verify, async (req, res) => {
         const user = await User.findById(req.params.id);
         if (user._id == req.params.id) {
             try {
-                const publicPlan = await PublicPlan.find();
+                const publicPlan = await publicPlanModel.find();
                 const response = {};
                 for (i in publicPlan) {
                     response[i] = {"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"createdBy":publicPlan[i].createdBy};
@@ -33,7 +33,7 @@ router.post("/:id", verify, async (req, res) => {
         if (!coach) {
             res.status(400).send({"message":"No User"});
         }
-        const newPlan = new PublicPlanModel({
+        const newPlan = new publicPlanModel({
             planName: req.body.planName,
             exercises: req.body.exercises,
             createdBy: coach.email
