@@ -11,8 +11,7 @@ const publicPlanSchema = new mongoose.Schema({
         type: [Exercise]
     },
     createdBy: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
