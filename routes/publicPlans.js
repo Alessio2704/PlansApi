@@ -30,7 +30,7 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/:id", verify, async (req, res) => {
     try {
-        const coach = await Coach.findById(req.params.id);
+        const coach = await Coach.findOne({ _id: req.params.id });
             const newPlan = new PublicPlan({
                 planName: req.body.planName,
                 exercises: req.body.exercises,
