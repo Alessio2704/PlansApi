@@ -33,11 +33,7 @@ router.post("/:id", verify, async (req, res) => {
             if (!coach) {
                 res.status(400).send({"message":"No User"});
             }
-            const newPlan = new publicPlanModel({
-                planName: req.body.planName,
-                exercises: req.body.exercises,
-                createdBy: coach.email
-            });
+            const newPlan = new publicPlanModel(req.body);
             coach.publicPlans.push(newPlan);
             coach.save();
             try {
