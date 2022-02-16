@@ -34,6 +34,7 @@ router.post("/:id", verify, async (req, res) => {
                 res.status(400).send({"message":"No User"});
             }
             const newPlan = new publicPlanModel(req.body);
+            newPlan.createdBy = coach.email;
             coach.publicPlans.push(newPlan);
             coach.save();
             try {
