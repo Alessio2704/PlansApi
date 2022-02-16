@@ -29,22 +29,21 @@ router.get("/:id", verify, async (req, res) => {
 });
 
 router.post("/:id", verify, async (req, res) => {
-    try {
-        const coach = await Coach.findOne({ _id: req.params.id });
-            const newPlan = new PublicPlan({
-                planName: req.body.planName,
-                exercises: req.body.exercises,
-                createdBy: coach.email
-            });
-            try {
-                newPlan.save();
-                res.send({"name":newPlan.planName, "exercises":newPlan.exercises, "createdBy":newPlan.createdBy});
-            } catch (err) {
-                res.send(err);
-            };
-    } catch(error) {
-        res.status(400).send({"message":"No User"});
-    }
+        const coach = Coach.findOne({ _id: req.params.id });
+        if (!coach) {
+            res.status(400).send({"message":"No User"});
+        }
+        const newPlan = new PublicPlan({
+            planName: req.body.planName,
+            exercises: req.body.exercises,
+            createdBy: coach.email
+        });
+        try {
+            newPlan.save();
+            res.send({"name":newPlan.planName,"createdBy":newPlan.createdBy});
+        } catch (err) {
+            res.send(err);
+        };
 });
 
 module.exports = router;
