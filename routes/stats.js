@@ -15,6 +15,11 @@ router.post("/:id", verify, (req, res) => {
                     return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
                 }).pop();
                 exercise.stats.push(req.body.stats);
+
+                for (i in exercise.sets) {
+                    exercise.sets[i].latestReps = req.body.stats.sets[i].reps;
+                }
+
                 res.send({"message": "Stats Uploaded"});
                 user.save();
             } catch(error) {
