@@ -20,6 +20,7 @@ router.post("/:id", verify, (req, res) => {
                     for (j in req.body.stats.sets) {
                         if (exercise.sets[i].number === req.body.stats.sets[j].number) {
                             exercise.sets[i].latestReps = req.body.stats.sets[j].reps;
+                            exercise.sets[i].weight = req.body.stats.sets[j].weight;
                         }
                     }
                 }
