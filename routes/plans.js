@@ -109,8 +109,8 @@ router.post("/add/exercise/:id", verify, (req, res) => {
 
                 try {
                     const exercise = {
-                        name: "req.body.name",
-                        day: "req.body.day",
+                        name: req.body.name,
+                        day: req.body.day,
                         sets: req.body.sets,
                         rowOrder: req.body.rowOrder
                     };
