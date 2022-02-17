@@ -105,10 +105,11 @@ router.post("/add/exercise/:id", verify, (req, res) => {
             if (req.body.exerciseName !== "Superset") {
 
                 console.log(req.body);
+                console.log(req.body.day);
 
                 try {
                     const exercise = {
-                        name: req.body.name,
+                        name: req.body.exerciseName,
                         day: req.body.day,
                         sets: req.body.sets,
                         rowOrder: req.body.rowOrder
