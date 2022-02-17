@@ -94,6 +94,96 @@ router.post("/delete/exercise/:id", verify, (req, res) => {
     });
 });
 
+router.post("/add/exercise/:id", verify, (req, res) => {
+    const user = User.findOne({_id:req.params.id}, function (err, user) {
+        if (err) res.status(404).send({"message":"User not found"});
+        try {
+            const plan = user.plans.filter(function (plans) {
+                return plans.planName === req.body.planName;
+            }).pop();
+
+            if (req.body.exerciseName !== "Superset") {
+                try {
+                    const exercise = {
+                        name: req.body.exerciseName,
+                        day: req.body.day,
+                        sets: req.body.sets,
+                        rowOrder: req.body.rowOrder
+                    };
+                    plan.exercises.push(exercise);
+                    user.save();
+                    res.send({"message":"Exercise added"});
+                } catch(error) {
+                    console.log(error);
+                    res.send({"message":"Exercise adding error"});
+                }
+            } else {
+                try {
+                    const supersetExercise = {
+                        supersets: req.body.supersets,
+                        exerciseOrder: req.body.exerciseOrder,
+                        day: req.body.day,
+                        restTime: req.body.restTime
+                    };
+                    plan.supersets.push(supersetExercise);
+                    user.save();
+                    res.send({"message":"Superset added"});
+                } catch(error) {
+                    console.log(error);
+                    res.send({"message":"Superset adding error"});
+                }
+            }
+        } catch(err) {
+            res.send({"message":"Plan not found"});
+        }
+    });
+});
+
+router.post("/add/exercise/coach/:id", verify, (req, res) => {
+    const coach = Coach.findOne({_id:req.params.id}, function (err, coach) {
+        if (err) res.status(404).send({"message":"Coach not found"});
+        try {
+            const plan = coach.plans.filter(function (plans) {
+                return plans.planName === req.body.planName;
+            }).pop();
+
+            if (req.body.exerciseName !== "Superset") {
+                try {
+                    const exercise = {
+                        name: req.body.exerciseName,
+                        day: req.body.day,
+                        sets: req.body.sets,
+                        rowOrder: req.body.rowOrder
+                    };
+                    plan.exercises.push(exercise);
+                    coach.save();
+                    res.send({"message":"Exercise added"});
+                } catch(error) {
+                    console.log(error);
+                    res.send({"message":"Exercise adding error"});
+                }
+            } else {
+                try {
+                    const supersetExercise = {
+                        supersets: req.body.supersets,
+                        exerciseOrder: req.body.exerciseOrder,
+                        day: req.body.day,
+                        restTime: req.body.restTime
+                    };
+                    plan.supersets.push(supersetExercise);
+                    coach.save();
+                    res.send({"message":"Superset added"});
+                } catch(error) {
+                    console.log(error);
+                    res.send({"message":"Superset adding error"});
+                }
+            }
+        } catch(err) {
+            res.send({"message":"Plan not found"});
+        }
+    });
+});
+
 router.post("/delete/exercise/coach/:id", verify, (req, res) => {
     const coach = Coach.findOne({_id:req.params.id}, function (err, coach) {
         if (err) res.status(404).send({"message":"Coach not found"});
