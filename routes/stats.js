@@ -17,7 +17,11 @@ router.post("/:id", verify, (req, res) => {
                 exercise.stats.push(req.body.stats);
 
                 for (i in exercise.sets) {
-                    exercise.sets[i].latestReps = req.body.stats.sets[i].reps;
+                    for (j in req.body.stats.sets) {
+                        if (exercise.sets[i].number === req.body.stats.sets[j].number) {
+                            exercise.sets[i].latestReps = req.body.stats.sets[j].reps;
+                        }
+                    }
                 }
 
                 res.send({"message": "Stats Uploaded"});
