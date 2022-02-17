@@ -103,6 +103,10 @@ router.post("/add/exercise/:id", verify, (req, res) => {
             }).pop();
 
             if (req.body.exerciseName !== "Superset") {
+
+                console.log(req.body.exerciseName);
+                console.log(req.body.day);
+
                 try {
                     const exercise = {
                         name: req.body.exerciseName,
