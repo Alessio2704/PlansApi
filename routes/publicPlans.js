@@ -13,7 +13,7 @@ router.get("/:id", verify, async (req, res) => {
                 const publicPlan = await publicPlanModel.find();
                 const response = {};
                 for (i in publicPlan) {
-                    response[i] = {"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"createdBy":publicPlan[i].createdBy};
+                    response[i] = {"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"supersets":publicPlan[i].supersets,"likes":publicPlan[i].likes.count(), "downloads":publicPlan[i].downloads.count()};
                 }
                 res.send(response);
             } catch(error) {
@@ -25,6 +25,33 @@ router.get("/:id", verify, async (req, res) => {
 
     } catch (err) {
         res.status(400).send({"message":"No User"});
+    };
+});
+
+router.get("/coach/:id", verify, async (req, res) => {
+
+    try {
+        const coach = await Coach.findById(req.params.id);
+        if (coach._id == req.params.id) {
+            try {
+                const publicPlan = coach.publicPlans;
+                const response = [];
+                for (i in publicPlan) {
+                    const likes = publicPlan[i].likes.length;
+                    const downloads = publicPlan[i].downloads.length;
+                    response.push({"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"supersets":publicPlan[i].supersets,"likes":likes, "downloads":downloads});
+                }
+                res.send(response);
+            } catch(error) {
+                console.log(error);
+                res.send(error);
+            }
+        } else {
+            res.status(400).send({"message":"No Plan"});
+        }
+
+    } catch (err) {
+        res.status(400).send({"message":"No Coach"});
     };
 });
 

@@ -21,7 +21,7 @@ const publicPlanSchema = new mongoose.Schema({
 
     likes: [{ type : mongoose.Types.ObjectId, ref: 'User' }],
 
-    downloades: [{ type : mongoose.Types.ObjectId, ref: 'User'}]
+    downloads: [{ type : mongoose.Types.ObjectId, ref: 'User'}]
 });
 
 module.exports.publicPlan = publicPlanSchema;
