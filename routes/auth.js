@@ -4,6 +4,7 @@ const Coach = require("../model/Coach");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation } = require("../validation");
+const { publicPlan, publicPlanModel} = require("../model/PublicPlan");
 const verify = require("./verifyToken");
 
 
@@ -122,7 +123,24 @@ router.post("/login/coach", async (req,res) => {
 
 router.delete("/delete/coach/:id", verify, async (req,res) => {
     try {
-        const coachDB = await Coach.findByIdAndDelete(req.params.id);
+        const coachDB = await Coach.findOne({_id:req.params.id}, function (err, foundCoach){
+            for (i in foundCoach.publicPlans) {
+                const publicPlanModelToDelete = publicPlanModel.findOne({"planName":foundCoach.publicPlans[i].planName,"createdBy":foundCoach.email}, async function (err, foundPlan) {
+                    if (err) {
+                        res.send({"message":"Plan not found in public database"});
+                        return;
+                    } else {
+                        try {
+                            const planDBToDelete = await publicPlanModel.findByIdAndDelete(foundPlan._id);
+                        } catch (error) {
+                            res.send({"message":"error"});
+                        }
+                        return;
+                    }
+                });
+            }
+        }).clone();
+        const coachToDelete = await Coach.findByIdAndDelete(req.params.id);
         res.status(200).send({"message":"Coach deleted"})
     } catch(error) {
         res.status(400).send({"message":"Coach not found"});
