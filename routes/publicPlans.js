@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const { publicPlan, publicPlanModel } = require("../model/PublicPlan");
+const { publicPlan, publicPlanModel} = require("../model/PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
@@ -71,6 +71,32 @@ router.post("/:id", verify, async (req, res) => {
                 res.send(err);
             };
         });
+});
+
+router.post("/coach/delete/:id", verify, async (req, res) => {
+    const coach = Coach.findOne({ _id: req.params.id }, function (err, coach) {
+        if (!coach) {
+            res.status(400).send({"message":"No User"});
+        }
+        const publicPlanToDelete = coach.publicPlans.filter(function (publicPlanFound) {
+            return (publicPlanFound.planName == req.body.planName);
+        }).pop();
+        coach.publicPlans.pull(publicPlanToDelete);
+        coach.save();
+        const publicPlanModelToDelete = publicPlanModel.findOne({"planName":req.body.planName,"createdBy":coach.email}, async function (err, foundPlan) {
+
+            if (err) {
+                res.send({"message":"Plan not found in public database"});
+            } else {
+                try {
+                    const planDBToDelete = await publicPlanModel.findByIdAndDelete(foundPlan._id);
+                } catch (error) {
+                    res.send({"message":"error"});
+                }
+            }
+        });
+        res.send({"message":"Plan deleted"});
+    });
 });
 
 module.exports = router;
