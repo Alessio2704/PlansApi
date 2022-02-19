@@ -18,9 +18,10 @@ const publicPlanSchema = new mongoose.Schema({
     createdBy: {
         type: String
     },
-
+    workoutDays: {
+        type: Number
+    },
     likes: [{ type : mongoose.Types.ObjectId, ref: 'User' }],
-
     downloads: [{ type : mongoose.Types.ObjectId, ref: 'User'}]
 });
 

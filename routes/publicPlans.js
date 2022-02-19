@@ -4,30 +4,6 @@ const { publicPlan, publicPlanModel} = require("../model/PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
-router.get("/:id", verify, async (req, res) => {
-
-    try {
-        const user = await User.findById(req.params.id);
-        if (user._id == req.params.id) {
-            try {
-                const publicPlan = await publicPlanModel.find();
-                const response = {};
-                for (i in publicPlan) {
-                    response[i] = {"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"supersets":publicPlan[i].supersets,"likes":publicPlan[i].likes.count(), "downloads":publicPlan[i].downloads.count()};
-                }
-                res.send(response);
-            } catch(error) {
-                res.send(error);
-            }
-        } else {
-            res.status(400).send({"message":"No User"});
-        }
-
-    } catch (err) {
-        res.status(400).send({"message":"No User"});
-    };
-});
-
 router.get("/coach/:id", verify, async (req, res) => {
 
     try {
@@ -62,6 +38,16 @@ router.post("/:id", verify, async (req, res) => {
             }
             const newPlan = new publicPlanModel(req.body);
             newPlan.createdBy = coach.email;
+
+            const days = new Set();
+            for (i in newPlan.exercises) {
+                days.add(newPlan.exercises[i].day)
+            }
+            for (i in newPlan.supersets) {
+                days.add(newPlan.supersets[i].day)
+            }
+
+            newPlan.workoutDays = days.size;
             coach.publicPlans.push(newPlan);
             coach.save();
             try {
