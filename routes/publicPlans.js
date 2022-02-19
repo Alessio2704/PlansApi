@@ -13,7 +13,15 @@ router.post("/user/:id", verify, async (req, res) => {
                     const response = []
                     for (i in foundPlans) {
                         if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
-                            response.push(foundPlans[i]);
+
+                            const responseObj = {
+                                "planName":foundPlans[i].planName,
+                                "likes":foundPlans[i].likes.length,
+                                "downloads":foundPlans[i].downloads.length,
+                                "createdBy":foundPlans[i].createdBy,
+                                "workoutDays":foundPlans[i].workoutDays,
+                            }
+                            response.push(responseObj);
                         }
                     }
                     res.send(response);
