@@ -4,8 +4,33 @@ const { publicPlan, publicPlanModel} = require("../model/PublicPlan");
 const User = require("../model/User");
 const Coach = require("../model/Coach");
 
-router.get("/coach/:id", verify, async (req, res) => {
+router.post("/user/:id", verify, async (req, res) => {
+    try {
+        const userDB = await User.findById(req.params.id);
+        try {
+            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays}}, function (err, foundPlans) {
+                if (!err) {
+                    const response = []
+                    for (i in foundPlans) {
+                        if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+                            response.push(foundPlans[i]);
+                        }
+                    }
+                    res.send(response);
+                } else {
+                    console.log(err);
+                    res.status(404).send({"message":"No plan found"});
+                }
+            });
+        } catch (error) {
+            res.status(404).send({"message":"No plan found"});
+        }
+    } catch (error) {
+        res.status(404).send({"message":"User not found"});
+    }
+});
 
+router.get("/coach/:id", verify, async (req, res) => {
     try {
         const coach = await Coach.findById(req.params.id);
         if (coach._id == req.params.id) {
