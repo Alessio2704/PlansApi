@@ -15,6 +15,7 @@ router.post("/user/:id", verify, async (req, res) => {
                         if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
 
                             const responseObj = {
+                                "planId": foundPlans[i]._id,
                                 "planName":foundPlans[i].planName,
                                 "likes":foundPlans[i].likes.length,
                                 "downloads":foundPlans[i].downloads.length,
