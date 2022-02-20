@@ -38,6 +38,40 @@ router.post("/user/:id", verify, async (req, res) => {
     }
 });
 
+router.post("/coach/:id", verify, async (req, res) => {
+    try {
+        const coachDB = await Coach.findById(req.params.id);
+        try {
+            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays}}, function (err, foundPlans) {
+                if (!err) {
+                    const response = []
+                    for (i in foundPlans) {
+                        if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+
+                            const responseObj = {
+                                "planName":foundPlans[i].planName,
+                                "likes":foundPlans[i].likes.length,
+                                "downloads":foundPlans[i].downloads.length,
+                                "createdBy":foundPlans[i].createdBy,
+                                "workoutDays":foundPlans[i].workoutDays,
+                            }
+                            response.push(responseObj);
+                        }
+                    }
+                    res.send(response);
+                } else {
+                    console.log(err);
+                    res.status(404).send({"message":"No plan found"});
+                }
+            });
+        } catch (error) {
+            res.status(404).send({"message":"No plan found"});
+        }
+    } catch (error) {
+        res.status(404).send({"message":"User not found"});
+    }
+});
+
 router.get("/coach/:id", verify, async (req, res) => {
     try {
         const coach = await Coach.findById(req.params.id);
