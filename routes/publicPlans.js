@@ -5,6 +5,8 @@ const User = require("../model/User");
 const Coach = require("../model/Coach");
 
 router.post("/user/:id", verify, async (req, res) => {
+    let page = req.query.page;
+    const pageSize = 20;
     try {
         const userDB = await User.findById(req.params.id);
         try {
@@ -25,7 +27,7 @@ router.post("/user/:id", verify, async (req, res) => {
                             response.push(responseObj);
                         }
                     }
-                    res.send(response);
+                    res.send(response.slice((page - 1) * pageSize, pageSize * page));
                 } else {
                     console.log(err);
                     res.status(404).send({"message":"No plan found"});
@@ -40,6 +42,8 @@ router.post("/user/:id", verify, async (req, res) => {
 });
 
 router.post("/coach/:id", verify, async (req, res) => {
+    let page = req.query.page;
+    const pageSize = 20;
     try {
         const coachDB = await Coach.findById(req.params.id);
         try {
@@ -60,7 +64,7 @@ router.post("/coach/:id", verify, async (req, res) => {
                             response.push(responseObj);
                         }
                     }
-                    res.send(response);
+                    res.send(response.slice((page - 1) * pageSize, pageSize * page));
                 } else {
                     console.log(err);
                     res.status(404).send({"message":"No plan found"});
