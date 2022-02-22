@@ -181,6 +181,7 @@ router.put("/user/download/:id", verify, async (req, res) => {
                             console.log(foundCoachDB.publicPlans);
                             
                             for (i in foundCoachDB.publicPlans) {
+                                console.log(foundCoachDB.publicPlans[i].planName);
                                 if (foundCoachDB.publicPlans[i].planName == planDB.planName) {
                                     foundCoachDB.publicPlans[i].downloads.push(req.params.id);
                                     foundCoachDB.save();
