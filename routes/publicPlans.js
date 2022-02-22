@@ -179,11 +179,13 @@ router.put("/user/download/:id", verify, async (req, res) => {
                         if (foundCoachDB) {
                             console.log("Found Coach");
                             console.log(foundCoachDB.publicPlans);
-                            const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
-                                return (plan.planName === planDB.planName);                     
-                            }).pop();
-                            downloadedPlan.downloads.push(req.params.id);
-                            foundCoachDB.save();
+                            
+                            for (i in foundCoachDB.publicPlans) {
+                                if (foundCoachDB.publicPlans[i].planName == planDB.planName) {
+                                    foundCoachDB.publicPlans[i].downloads.push(req.params.id);
+                                    foundCoachDB.save();
+                                }
+                            }
                         }
                     })
 
