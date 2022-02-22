@@ -12,6 +12,9 @@ const planSchema = new mongoose.Schema({
     },
     supersets: {
         type: [supersetExercise]
+    },
+    notes: {
+        type: String
     }
 });
 
