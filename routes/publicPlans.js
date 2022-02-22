@@ -175,20 +175,17 @@ router.put("/user/download/:id", verify, async (req, res) => {
                     planDB.downloads.push(req.params.id)
                     planDB.save();
 
-                    const coachDBPlanCreator = Coach.find({email:planDB.createdBy}, function (err, foundCoachDB) {
+                    const coachDBPlanCreator = Coach.findOne({"email":planDB.createdBy}, function (err, foundCoachDB) {
+
                         if (foundCoachDB) {
-                            console.log(foundCoachDB);
-                            console.log(foundCoachDB.publicPlans);
-                            
-                            for (i in foundCoachDB.publicPlans) {
-                                console.log(foundCoachDB.publicPlans[i].planName);
-                                if (foundCoachDB.publicPlans[i].planName == planDB.planName) {
-                                    foundCoachDB.publicPlans[i].downloads.push(req.params.id);
-                                    foundCoachDB.save();
-                                }
-                            }
+                            const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
+                                return (plan.planName === planDB.planName);                     
+                            }).pop();
+    
+                            downloadedPlan.downloads.push(req.params.id);
+                            foundCoachDB.save();
                         }
-                    })
+                    });
 
                 } else {
                     console.log("This item already exists");
@@ -236,7 +233,7 @@ router.put("/coach/download/:id", verify, async (req, res) => {
                             downloadedPlan.downloads.push(req.params.id);
                             foundCoachDB.save();
                         }
-                    })
+                    });
 
                 } else {
                     console.log("This item already exists");
