@@ -170,17 +170,19 @@ router.put("/user/download/:id", verify, async (req, res) => {
 
             if (planDB) {
 
+                console.log(planDB.createdBy);
                 if (planDB.downloads.indexOf(req.params.id) === -1) {
                     planDB.downloads.push(req.params.id)
                     planDB.save();
 
                     const coachDBPlanCreator = Coach.find({email:planDB.createdBy}, function (err, foundCoachDB) {
-
-                        const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
-                            return (plan.planName === planDB.planName);                     
-                        }).pop();
-
-                        downloadedPlan.downloads.push(req.params.id);
+                        if (foundCoachDB) {
+                            const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
+                                return (plan.planName === planDB.planName);                     
+                            }).pop();
+    
+                            downloadedPlan.downloads.push(req.params.id);
+                        }
                     })
 
                 } else {
@@ -219,13 +221,15 @@ router.put("/coach/download/:id", verify, async (req, res) => {
                     planDB.downloads.push(req.params.id)
                     planDB.save();
 
-                    const coachDBPlanCreator = Coach.find({email:planDB.createdBy}, function (err, foundCoachDB) {
+                    const coachDBPlanCreator = Coach.findOne({"email":planDB.createdBy}, function (err, foundCoachDB) {
 
-                        const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
-                            return (plan.planName === planDB.planName);                     
-                        }).pop();
-
-                        downloadedPlan.downloads.push(req.params.id);
+                        if (foundCoachDB) {
+                            const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
+                                return (plan.planName === planDB.planName);                     
+                            }).pop();
+    
+                            downloadedPlan.downloads.push(req.params.id);
+                        }
                     })
 
                 } else {
