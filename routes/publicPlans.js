@@ -171,6 +171,7 @@ router.put("/user/download/:id", verify, async (req, res) => {
             if (planDB) {
 
                 planDB.downloads.push(req.params.id);
+                planDB.save();
 
                 const planToSend = {
                     "planName": planDB.planName,
