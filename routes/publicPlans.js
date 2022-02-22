@@ -119,7 +119,7 @@ router.post("/:id", verify, async (req, res) => {
             for (i in newPlan.supersets) {
                 days.add(newPlan.supersets[i].day)
             }
-
+            newPlan.notes = req.body.notes;
             newPlan.workoutDays = days.size;
             coach.publicPlans.push(newPlan);
             coach.save();
