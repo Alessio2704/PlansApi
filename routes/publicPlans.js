@@ -159,4 +159,58 @@ router.post("/coach/delete/:id", verify, async (req, res) => {
     });
 });
 
+router.put("/user/download/:id", verify, async (req, res) => {
+    const user = User.find({ _id: req.params.id}, async function (err, user) {
+        if (!user) {
+            res.status(400).send({"message":"No User"});
+            return;
+        }
+        
+        const planToDownload = await publicPlanModel.findById(req.body.planId, function (err, planDB) {
+
+            if (planDB) {
+                const planToSend = {
+                    "planName": planDB.planName,
+                    "exercises": planDB.exercises,
+                    "supersets": planDB.supersets,
+                    "notes": planDB.notes
+                }
+                res.send(planToSend);
+                return;
+            } else {
+                res.status(404).send({"message":"Plan not found"});
+                return;
+            }
+        }).clone();
+    }).clone();
+
+});
+
+router.put("/coach/download/:id", verify, async (req, res) => {
+    const coach = Coach.find({ _id: req.params.id}, async function (err, coach) {
+        if (!coach) {
+            res.status(400).send({"message":"No User"});
+            return;
+        }
+        
+        const planToDownload = await publicPlanModel.findById(req.body.planId, function (err, planDB) {
+
+            if (planDB) {
+                const planToSend = {
+                    "planName": planDB.planName,
+                    "exercises": planDB.exercises,
+                    "supersets": planDB.supersets,
+                    "notes": planDB.notes
+                }
+                res.send(planToSend);
+                return;
+            } else {
+                res.status(404).send({"message":"Plan not found"});
+                return;
+            }
+        }).clone();
+    }).clone();
+
+});
+
 module.exports = router;
