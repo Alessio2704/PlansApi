@@ -21,8 +21,8 @@ const publicPlanSchema = new mongoose.Schema({
     workoutDays: {
         type: Number
     },
-    likes: [{ type : mongoose.Types.ObjectId, ref: 'User' }],
-    downloads: [{ type : mongoose.Types.ObjectId, ref: 'User'}],
+    likes: [{ type : mongoose.Types.ObjectId, ref: 'User' },{ type : mongoose.Types.ObjectId, ref: 'Coach'}],
+    downloads: [{ type : mongoose.Types.ObjectId, ref: 'User'},{ type : mongoose.Types.ObjectId, ref: 'Coach'}],
     notes: {
         type: String
     }
