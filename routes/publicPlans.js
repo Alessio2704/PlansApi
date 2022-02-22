@@ -178,7 +178,7 @@ router.put("/user/download/:id", verify, async (req, res) => {
                     const coachDBPlanCreator = Coach.find({email:planDB.createdBy}, function (err, foundCoachDB) {
                         if (foundCoachDB) {
                             console.log("Found Coach");
-                            console.log(foundCoachDB);
+                            console.log(foundCoachDB.publicPlans);
                             const downloadedPlan = foundCoachDB.publicPlans.filter(function (plan) {
                                 return (plan.planName === planDB.planName);                     
                             }).pop();
