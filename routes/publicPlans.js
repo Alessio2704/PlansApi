@@ -149,6 +149,7 @@ router.post("/coach/delete/:id", verify, async (req, res) => {
             } else {
                 try {
                     const planDBToDelete = await publicPlanModel.findByIdAndDelete(foundPlan._id);
+                    return;
                 } catch (error) {
                     res.send({"message":"error"});
                 }
