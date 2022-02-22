@@ -169,6 +169,9 @@ router.put("/user/download/:id", verify, async (req, res) => {
         const planToDownload = await publicPlanModel.findById(req.body.planId, function (err, planDB) {
 
             if (planDB) {
+
+                planDB.downloads.push(req.params.id);
+
                 const planToSend = {
                     "planName": planDB.planName,
                     "exercises": planDB.exercises,
