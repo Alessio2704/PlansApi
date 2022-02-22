@@ -169,8 +169,13 @@ router.put("/user/download/:id", verify, async (req, res) => {
         const planToDownload = await publicPlanModel.findById(req.body.planId, function (err, planDB) {
 
             if (planDB) {
-                planDB.downloads.indexOf(req.params.id) === -1 ? planDB.downloads.push(req.params.id) : console.log("This item already exists");
-                planDB.save();
+                
+                if (planDB.downloads.indexOf(req.params.id) === -1) {
+                    planDB.downloads.push(req.params.id)
+                    planDB.save();
+                } else {
+                    console.log("This item already exists");
+                }
 
                 const planToSend = {
                     "planName": planDB.planName,
