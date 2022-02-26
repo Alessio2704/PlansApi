@@ -7,7 +7,7 @@ const plansRoute = require("./routes/plans");
 const publicPlansRoute = require("./routes/publicPlans");
 const publicExercisesRoute = require("./routes/publicExercises");
 const statsRoute = require("./routes/stats");
-const updateExerciseRoute = require("./routes/updateExercise")
+const updateExerciseRoute = require("./routes/updateExercise");
 
 dotenv.config();
 
