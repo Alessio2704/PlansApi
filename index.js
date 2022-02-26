@@ -6,7 +6,8 @@ const authRoute = require("./routes/auth");
 const plansRoute = require("./routes/plans");
 const publicPlansRoute = require("./routes/publicPlans");
 const publicExercisesRoute = require("./routes/publicExercises");
-const statsRoute = require("./routes/stats")
+const statsRoute = require("./routes/stats");
+const updateExerciseRoute = require("./routes/updateExercise")
 
 dotenv.config();
 
@@ -22,5 +23,6 @@ app.use("/api/user/personalplans", plansRoute);
 app.use("/api/user/publicplans", publicPlansRoute);
 app.use("/api/user/publicexercises", publicExercisesRoute);
 app.use("/api/user/plan/exercisestats", statsRoute);
+app.use("/api/user/plan/updateexercise", updateExerciseRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
