@@ -16,12 +16,13 @@ router.post("/:id", verify, (req, res) => {
                 }).pop();
                 exercise.sets = req.body.sets;
                 user.save();
+                res.send({"message":"Exercise Sets Updated"});
             } catch(error) {
-                res.send({"message":"Exercise not found"})
+                res.send({"message":"Exercise not found"});
             }
 
         } catch(err) {
-            res.send({"message":"Plan not found"})
+            res.send({"message":"Plan not found"});
         }
     });
 });
@@ -39,12 +40,13 @@ router.post("/coach/:id", verify, (req, res) => {
                 }).pop();
                 exercise.sets = req.body.sets;
                 coach.save();
+                res.send({"message":"Exercise Sets Updated"});
             } catch(error) {
-                res.send({"message":"Exercise not found"})
+                res.send({"message":"Exercise not found"});
             }
 
         } catch(err) {
-            res.send({"message":"Plan not found"})
+            res.send({"message":"Plan not found"});
         }
     });
 });
