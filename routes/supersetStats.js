@@ -40,6 +40,34 @@ router.post("/:id", verify, (req, res) => {
     });
 });
 
+router.put("/:id", verify, (req, res) => {
+
+    const user = User.findOne({_id:req.params.id}, function (err, user) {
+        try {
+            const plan = user.plans.filter(function (plans) {
+                return plans.planName === req.body.planName;
+            }).pop();
+            try {
+                const superset = plan.supersets.filter(function (supersetDB) {
+                    return (supersetDB.day === req.body.exerciseDay && supersetDB.exerciseOrder === req.body.exerciseOrder);
+                }).pop();
+                
+                const supersetExercise = superset.supersets.filter(function (supersetExerciseDB) {
+                    return (supersetExerciseDB.exerciseName === req.body.exerciseName);
+                }).pop();
+
+                res.send(supersetExercise.stats);
+
+            } catch(error) {
+                res.send({"message":"Exercise not found"})
+            }
+
+        } catch(err) {
+            res.send({"message":"Plan not found"})
+        }
+    });
+});
+
 router.post("/coach/:id", verify, (req, res) => {
 
     const coach = Coach.findOne({_id:req.params.id}, function (err, coach) {
@@ -71,6 +99,34 @@ router.post("/coach/:id", verify, (req, res) => {
             } catch(error) {
                 res.send({"message":"Exercise not found"})
             }
+        } catch(err) {
+            res.send({"message":"Plan not found"})
+        }
+    });
+});
+
+router.put("/coach/:id", verify, (req, res) => {
+
+    const coach = Coach.findOne({_id:req.params.id}, function (err, coach) {
+        try {
+            const plan = coach.plans.filter(function (plans) {
+                return plans.planName === req.body.planName;
+            }).pop();
+            try {
+                const superset = plan.supersets.filter(function (supersetDB) {
+                    return (supersetDB.day === req.body.exerciseDay && supersetDB.exerciseOrder === req.body.exerciseOrder);
+                }).pop();
+                
+                const supersetExercise = superset.supersets.filter(function (supersetExerciseDB) {
+                    return (supersetExerciseDB.exerciseName === req.body.exerciseName);
+                }).pop();
+
+                res.send(supersetExercise.stats);
+
+            } catch(error) {
+                res.send({"message":"Exercise not found"})
+            }
+
         } catch(err) {
             res.send({"message":"Plan not found"})
         }
