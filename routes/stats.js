@@ -12,7 +12,7 @@ router.post("/:id", verify, (req, res) => {
             }).pop();
             try {
                 const exercise = plan.exercises.filter(function (exercises) {
-                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
+                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay && exercise.rowOrder === req.body.exerciseRowOrder);
                 }).pop();
                 exercise.stats.push(req.body.stats);
 
@@ -46,7 +46,7 @@ router.put("/:id", verify, (req, res) => {
             }).pop();
             try {
                 const exercise = plan.exercises.filter(function (exercises) {
-                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
+                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay && exercise.rowOrder === req.body.exerciseRowOrder);
                 }).pop();
                 res.send(exercise.stats);
                 user.save();
@@ -69,7 +69,7 @@ router.post("/coach/:id", verify, (req, res) => {
             }).pop();
             try {
                 const exercise = plan.exercises.filter(function (exercises) {
-                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
+                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay && exercise.rowOrder === req.body.exerciseRowOrder);
                 }).pop();
                 exercise.stats.push(req.body.stats);
                 res.send({"message": "Stats Uploaded"});
@@ -93,7 +93,7 @@ router.put("/coach/:id", verify, (req, res) => {
             }).pop();
             try {
                 const exercise = plan.exercises.filter(function (exercises) {
-                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay);
+                    return (exercises.name === req.body.exerciseName && exercises.day === req.body.exerciseDay && exercise.rowOrder === req.body.exerciseRowOrder);
                 }).pop();
                 res.send(exercise.stats);
                 coach.save();
