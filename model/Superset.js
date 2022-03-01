@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const SetSuperset = require("./SetSuperset");
+const SupersetStats = require("./SupersetStats");
 
 const supersetSchema = new mongoose.Schema({
-
     exerciseName: {
         type: String,
         required: true
@@ -14,6 +14,9 @@ const supersetSchema = new mongoose.Schema({
     exerciseOrder: {
         type: Number,
         required: true
+    },
+    stats: {
+        type: [SupersetStats]
     }
 });
 

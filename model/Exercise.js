@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Set = require("./Set");
 const ExerciseStats = require("./ExerciseStats");
-const exerciseSchema = new mongoose.Schema({
 
+const exerciseSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true

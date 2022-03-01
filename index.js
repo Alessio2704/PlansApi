@@ -7,6 +7,7 @@ const plansRoute = require("./routes/plans");
 const publicPlansRoute = require("./routes/publicPlans");
 const publicExercisesRoute = require("./routes/publicExercises");
 const statsRoute = require("./routes/stats");
+const supersetStatsRoute = require("./routes/supersetStats");
 const updateExerciseRoute = require("./routes/updateExercise");
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use("/api/user/personalplans", plansRoute);
 app.use("/api/user/publicplans", publicPlansRoute);
 app.use("/api/user/publicexercises", publicExercisesRoute);
 app.use("/api/user/plan/exercisestats", statsRoute);
+app.use("/api/user/plan/supersetstats", supersetStatsRoute);
 app.use("/api/user/plan/updateexercise", updateExerciseRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
