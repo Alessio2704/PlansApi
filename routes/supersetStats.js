@@ -21,6 +21,7 @@ router.post("/:id", verify, (req, res) => {
                             for (z in superset.supersets[i].sets) {
                                 for (y in req.body.supersets[j].stats.sets) {
                                     if (superset.supersets[i].sets[z].number === req.body.supersets[j].stats.sets[y].number) {
+                                        console.log(req.body.supersets[j].stats.sets[y].reps);
                                         superset.supersets[i].sets[z].latestReps = req.body.supersets[j].stats.sets[y].reps;
                                         superset.supersets[i].sets[z].weight = req.body.supersets[j].stats.sets[y].weight;
                                     }
