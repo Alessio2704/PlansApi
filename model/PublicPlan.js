@@ -25,6 +25,9 @@ const publicPlanSchema = new mongoose.Schema({
     downloads: [{ type : mongoose.Types.ObjectId, ref: 'User'},{ type : mongoose.Types.ObjectId, ref: 'Coach'}],
     notes: {
         type: String
+    },
+    level: {
+        type: String
     }
 });
 
