@@ -15,6 +15,9 @@ const planSchema = new mongoose.Schema({
     },
     notes: {
         type: String
+    },
+    level: {
+        type: String
     }
 });
 

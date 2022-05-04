@@ -23,6 +23,7 @@ router.post("/user/:id", verify, async (req, res) => {
                                 "downloads":foundPlans[i].downloads.length,
                                 "createdBy":foundPlans[i].createdBy,
                                 "workoutDays":foundPlans[i].workoutDays,
+                                "level":foundPlans[i].level
                             }
                             response.push(responseObj);
                         }
@@ -60,6 +61,7 @@ router.post("/coach/:id", verify, async (req, res) => {
                                 "downloads":foundPlans[i].downloads.length,
                                 "createdBy":foundPlans[i].createdBy,
                                 "workoutDays":foundPlans[i].workoutDays,
+                                "level":foundPlans[i].level
                             }
                             response.push(responseObj);
                         }
@@ -88,7 +90,7 @@ router.get("/coach/:id", verify, async (req, res) => {
                 for (i in publicPlan) {
                     const likes = publicPlan[i].likes.length;
                     const downloads = publicPlan[i].downloads.length;
-                    response.push({"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"supersets":publicPlan[i].supersets,"likes":likes, "downloads":downloads});
+                    response.push({"planName":publicPlan[i].planName,"exercises":publicPlan[i].exercises,"supersets":publicPlan[i].supersets,"likes":likes, "downloads":downloads,"level":publicPlan[i].level});
                 }
                 res.send(response);
             } catch(error) {
@@ -120,6 +122,7 @@ router.post("/:id", verify, async (req, res) => {
                 days.add(newPlan.supersets[i].day)
             }
             newPlan.notes = req.body.notes;
+            newPlan.level = req.body.level;
             newPlan.workoutDays = days.size;
             coach.publicPlans.push(newPlan);
             coach.save();
@@ -195,7 +198,8 @@ router.put("/user/download/:id", verify, async (req, res) => {
                     "planName": planDB.planName,
                     "exercises": planDB.exercises,
                     "supersets": planDB.supersets,
-                    "notes": planDB.notes
+                    "notes": planDB.notes,
+                    "level": planDB.level
                 }
                 res.send(planToSend);
                 return;
@@ -243,7 +247,8 @@ router.put("/coach/download/:id", verify, async (req, res) => {
                     "planName": planDB.planName,
                     "exercises": planDB.exercises,
                     "supersets": planDB.supersets,
-                    "notes": planDB.notes
+                    "notes": planDB.notes,
+                    "level": planDB.level
                 }
                 res.send(planToSend);
                 return;
