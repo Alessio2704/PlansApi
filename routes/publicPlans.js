@@ -9,34 +9,67 @@ router.post("/user/:id", verify, async (req, res) => {
     const pageSize = 20;
     try {
         const userDB = await User.findById(req.params.id);
-        try {
-            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level},createdBy: {$eq: req.body.createdBy}}, function (err, foundPlans) {
-                if (!err) {
-                    const response = []
-                    for (i in foundPlans) {
-                        if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
 
-                            const responseObj = {
-                                "planId": foundPlans[i]._id,
-                                "planName":foundPlans[i].planName,
-                                "likes":foundPlans[i].likes.length,
-                                "downloads":foundPlans[i].downloads.length,
-                                "createdBy":foundPlans[i].createdBy,
-                                "workoutDays":foundPlans[i].workoutDays,
-                                "level":foundPlans[i].level
+        if (req.body.createdBy != "") {
+            try {
+                const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level},createdBy: {$eq: req.body.createdBy}}, function (err, foundPlans) {
+                    if (!err) {
+                        const response = []
+                        for (i in foundPlans) {
+                            if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+    
+                                const responseObj = {
+                                    "planId": foundPlans[i]._id,
+                                    "planName":foundPlans[i].planName,
+                                    "likes":foundPlans[i].likes.length,
+                                    "downloads":foundPlans[i].downloads.length,
+                                    "createdBy":foundPlans[i].createdBy,
+                                    "workoutDays":foundPlans[i].workoutDays,
+                                    "level":foundPlans[i].level
+                                }
+                                response.push(responseObj);
                             }
-                            response.push(responseObj);
                         }
+                        res.send(response.slice((page - 1) * pageSize, pageSize * page));
+                    } else {
+                        console.log(err);
+                        res.status(404).send({"message":"No plan found"});
                     }
-                    res.send(response.slice((page - 1) * pageSize, pageSize * page));
-                } else {
-                    console.log(err);
-                    res.status(404).send({"message":"No plan found"});
-                }
-            });
-        } catch (error) {
-            res.status(404).send({"message":"No plan found"});
+                });
+            } catch (error) {
+                res.status(404).send({"message":"No plan found"});
+            }
+        } else {
+            try {
+                const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level}}, function (err, foundPlans) {
+                    if (!err) {
+                        const response = []
+                        for (i in foundPlans) {
+                            if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+    
+                                const responseObj = {
+                                    "planId": foundPlans[i]._id,
+                                    "planName":foundPlans[i].planName,
+                                    "likes":foundPlans[i].likes.length,
+                                    "downloads":foundPlans[i].downloads.length,
+                                    "createdBy":foundPlans[i].createdBy,
+                                    "workoutDays":foundPlans[i].workoutDays,
+                                    "level":foundPlans[i].level
+                                }
+                                response.push(responseObj);
+                            }
+                        }
+                        res.send(response.slice((page - 1) * pageSize, pageSize * page));
+                    } else {
+                        console.log(err);
+                        res.status(404).send({"message":"No plan found"});
+                    }
+                });
+            } catch (error) {
+                res.status(404).send({"message":"No plan found"});
+            }
         }
+
     } catch (error) {
         res.status(404).send({"message":"User not found"});
     }
@@ -47,34 +80,67 @@ router.post("/coach/:id", verify, async (req, res) => {
     const pageSize = 20;
     try {
         const coachDB = await Coach.findById(req.params.id);
-        try {
-            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level},createdBy: {$eq: req.body.createdBy}}, function (err, foundPlans) {
-                if (!err) {
-                    const response = []
-                    for (i in foundPlans) {
-                        if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
 
-                            const responseObj = {
-                                "planId": foundPlans[i]._id,
-                                "planName":foundPlans[i].planName,
-                                "likes":foundPlans[i].likes.length,
-                                "downloads":foundPlans[i].downloads.length,
-                                "createdBy":foundPlans[i].createdBy,
-                                "workoutDays":foundPlans[i].workoutDays,
-                                "level":foundPlans[i].level
+        if (req.body.createdBy != "") {
+            try {
+                const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level},createdBy: {$eq: req.body.createdBy}}, function (err, foundPlans) {
+                    if (!err) {
+                        const response = []
+                        for (i in foundPlans) {
+                            if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+    
+                                const responseObj = {
+                                    "planId": foundPlans[i]._id,
+                                    "planName":foundPlans[i].planName,
+                                    "likes":foundPlans[i].likes.length,
+                                    "downloads":foundPlans[i].downloads.length,
+                                    "createdBy":foundPlans[i].createdBy,
+                                    "workoutDays":foundPlans[i].workoutDays,
+                                    "level":foundPlans[i].level
+                                }
+                                response.push(responseObj);
                             }
-                            response.push(responseObj);
                         }
+                        res.send(response.slice((page - 1) * pageSize, pageSize * page));
+                    } else {
+                        console.log(err);
+                        res.status(404).send({"message":"No plan found"});
                     }
-                    res.send(response.slice((page - 1) * pageSize, pageSize * page));
-                } else {
-                    console.log(err);
-                    res.status(404).send({"message":"No plan found"});
-                }
-            });
-        } catch (error) {
-            res.status(404).send({"message":"No plan found"});
+                });
+            } catch (error) {
+                res.status(404).send({"message":"No plan found"});
+            }
+        } else {
+            try {
+                const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level}}, function (err, foundPlans) {
+                    if (!err) {
+                        const response = []
+                        for (i in foundPlans) {
+                            if (foundPlans[i].likes.length >= req.body.likes && foundPlans[i].downloads.length >= req.body.downloads) {
+    
+                                const responseObj = {
+                                    "planId": foundPlans[i]._id,
+                                    "planName":foundPlans[i].planName,
+                                    "likes":foundPlans[i].likes.length,
+                                    "downloads":foundPlans[i].downloads.length,
+                                    "createdBy":foundPlans[i].createdBy,
+                                    "workoutDays":foundPlans[i].workoutDays,
+                                    "level":foundPlans[i].level
+                                }
+                                response.push(responseObj);
+                            }
+                        }
+                        res.send(response.slice((page - 1) * pageSize, pageSize * page));
+                    } else {
+                        console.log(err);
+                        res.status(404).send({"message":"No plan found"});
+                    }
+                });
+            } catch (error) {
+                res.status(404).send({"message":"No plan found"});
+            }
         }
+
     } catch (error) {
         res.status(404).send({"message":"User not found"});
     }
