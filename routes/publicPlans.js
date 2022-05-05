@@ -48,7 +48,7 @@ router.post("/coach/:id", verify, async (req, res) => {
     try {
         const coachDB = await Coach.findById(req.params.id);
         try {
-            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays}}, function (err, foundPlans) {
+            const publicPlansModels = publicPlanModel.find({workoutDays:{$eq: req.body.workoutDays},level:{$eq: req.body.level}}, function (err, foundPlans) {
                 if (!err) {
                     const response = []
                     for (i in foundPlans) {
