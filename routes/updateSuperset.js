@@ -15,6 +15,8 @@ router.post("/:id", verify, (req, res) => {
                     return (supersetExercise.day === req.body.day && supersetExercise.exerciseOrder === req.body.exerciseOrder);
                 }).pop();
 
+                console.log(supersetExercise);
+
                 for (i in supersetExercise.supersets) {
                     for (j in req.body.supersets) {
                         if (supersetExercise.supersets[i].exerciseOrder === req.body.supersets[j].exerciseOrder) {
