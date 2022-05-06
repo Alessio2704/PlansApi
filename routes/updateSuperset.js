@@ -51,13 +51,7 @@ router.post("/coach/:id", verify, (req, res) => {
                 for (i in supersetExercise.supersets) {
                     for (j in req.body.supersets) {
                         if (supersetExercise.supersets[i].exerciseOrder === req.body.supersets[j].exerciseOrder) {
-                            for (a in supersetExercise.supersets[i].sets) {
-                                for (b in req.body.supersets[j].sets) {
-                                    if (supersetExercise.supersets[i].sets[a].number === req.body.supersets[j].sets[b].number) {
-                                        supersetExercise.supersets[i].sets[a] = req.body.supersets[j].sets[b]  
-                                    }
-                                }
-                            }
+                            supersetExercise.supersets[i].sets = req.body.supersets[j].sets
                         }
                     }
                 }
