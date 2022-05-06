@@ -86,3 +86,4 @@ router.post("/coach/:id", verify, (req, res) => {
         }
     });
 });
+module.exports = router;
