@@ -21,10 +21,7 @@ router.post("/:id", verify, (req, res) => {
                             for (a in supersetExercise.supersets[i].sets) {
                                 for (b in req.body.supersets[j].sets) {
                                     if (supersetExercise.supersets[i].sets[a].number === req.body.supersets[j].sets[b].number) {
-                                        supersetExercise.supersets[i].sets[a].reps = req.body.supersets[j].sets[b].reps
-                                        supersetExercise.supersets[i].sets[a].weight = req.body.supersets[j].sets[b].weight
-                                        supersetExercise.supersets[i].sets[a].latestReps = req.body.supersets[j].sets[b].latestReps
-                                        
+                                        supersetExercise.supersets[i].sets[a] = req.body.supersets[j].sets[b]  
                                     }
                                 }
                             }
